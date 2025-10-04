@@ -1,10 +1,11 @@
 package com.carvalho.hexagonal_architecture.application.core.usecase;
 
 import com.carvalho.hexagonal_architecture.application.core.domain.Customer;
+import com.carvalho.hexagonal_architecture.application.ports.in.InsertCustomerInputPort;
 import com.carvalho.hexagonal_architecture.application.ports.out.FindAddressByZipCodeOutputPort;
 import com.carvalho.hexagonal_architecture.application.ports.out.InsertCustomerOutputPort;
 
-public class InsertCustomerUseCase {
+public class InsertCustomerUseCase implements InsertCustomerInputPort {
 
     private final FindAddressByZipCodeOutputPort findAddressByZipCodeOutputPort;
 
@@ -17,6 +18,8 @@ public class InsertCustomerUseCase {
         this.findAddressByZipCodeOutputPort = findAddressByZipCodeOutputPort;
         this.insertCustomerOutputPort = insertCustomerOutputPort;
     }
+
+    @Override
     public void insert(Customer customer, String zipCode){
         var address = findAddressByZipCodeOutputPort.find(zipCode);
         customer.setAddress(address);

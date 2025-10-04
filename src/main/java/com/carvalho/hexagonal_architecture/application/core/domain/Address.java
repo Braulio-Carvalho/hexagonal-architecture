@@ -8,9 +8,6 @@ public class Address {
         this.state = state;
     }
 
-    public Address() {
-    }
-
     private String street;
 
     private String city;
