@@ -23,7 +23,6 @@ public class InsertCustomerUseCase implements InsertCustomerInputPort {
     public void insert(Customer customer, String zipCode){
         var address = findAddressByZipCodeOutputPort.find(zipCode);
         customer.setAddress(address);
-
         insertCustomerOutputPort.insert(customer);
     }
 

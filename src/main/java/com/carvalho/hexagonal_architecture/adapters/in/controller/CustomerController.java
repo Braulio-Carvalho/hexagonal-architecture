@@ -3,8 +3,10 @@ package com.carvalho.hexagonal_architecture.adapters.in.controller;
 import com.carvalho.hexagonal_architecture.adapters.in.controller.mapper.CustomerMapper;
 import com.carvalho.hexagonal_architecture.adapters.in.controller.request.CustomerRequest;
 import com.carvalho.hexagonal_architecture.adapters.in.controller.response.CustomerResponse;
+import com.carvalho.hexagonal_architecture.application.ports.in.DeleteCustomerByIdInputPort;
 import com.carvalho.hexagonal_architecture.application.ports.in.FindCustomerByIdInputPort;
 import com.carvalho.hexagonal_architecture.application.ports.in.InsertCustomerInputPort;
+import com.carvalho.hexagonal_architecture.application.ports.in.UpdateCustomerInputPort;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +25,12 @@ public class CustomerController {
     FindCustomerByIdInputPort findCustomerByIdInputPort;
 
     @Autowired
+    UpdateCustomerInputPort updateCustomerInputPort;
+
+    @Autowired
+    DeleteCustomerByIdInputPort deleteCustomerByIdInputPort;
+
+    @Autowired
     CustomerMapper customerMapper;
 
     @PostMapping
@@ -37,5 +45,19 @@ public class CustomerController {
         var customer = findCustomerByIdInputPort.findById(id);
         var customerResponse = customerMapper.toCustomerResponse(customer);
         return ResponseEntity.ok().body(customerResponse);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> update(@PathVariable final String id, @Valid @RequestBody CustomerRequest customerRequest){
+        var customer = customerMapper.toCustomer(customerRequest);
+        customer.setId(id);
+        updateCustomerInputPort.update(customer, customerRequest.getZipCode());
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("{/id}")
+    public ResponseEntity<Void> deleteById(@PathVariable final String id){
+        deleteCustomerByIdInputPort.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
