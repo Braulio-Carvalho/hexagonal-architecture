@@ -3,16 +3,16 @@ package com.carvalho.hexagonal_architecture.application.core.domain;
 
 public class Customer {
 
-    public Customer(String id, String name, Address address, String cpf, Boolean isValid) {
+    public Customer(String id, String name, Address address, String cpf, Boolean isValidCpf) {
         this.id = id;
         this.name = name;
         this.address = address;
         this.cpf = cpf;
-        this.isValid = isValid;
+        this.isValidCpf = isValidCpf;
     }
 
     public Customer() {
-        this.isValid = false;
+        this.isValidCpf = false;
     }
 
     private String id;
@@ -23,7 +23,15 @@ public class Customer {
 
     private String cpf;
 
-    private Boolean isValid;
+    private Boolean isValidCpf;
+
+    public Boolean getIsValidCpf() {
+        return isValidCpf;
+    }
+
+    public void setIsValidCpf(Boolean isValidCpf) {
+        this.isValidCpf = isValidCpf;
+    }
 
     public String getId() {
         return id;
@@ -57,11 +65,4 @@ public class Customer {
         this.cpf = cpf;
     }
 
-    public Boolean getValid() {
-        return isValid;
-    }
-
-    public void setValid(Boolean valid) {
-        isValid = valid;
-    }
 }

@@ -5,7 +5,7 @@ import lombok.Data;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Data
-@Document(collation = "customers")
+@Document(collection = "customers")
 public class CustomerEntity {
 
     private String id;
@@ -16,5 +16,5 @@ public class CustomerEntity {
 
     private String cpf;
 
-    private Boolean isValid;
+    private Boolean isValidCpf;
 }

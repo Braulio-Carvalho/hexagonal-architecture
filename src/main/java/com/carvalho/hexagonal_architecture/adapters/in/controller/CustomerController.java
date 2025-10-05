@@ -7,12 +7,12 @@ import com.carvalho.hexagonal_architecture.application.ports.in.DeleteCustomerBy
 import com.carvalho.hexagonal_architecture.application.ports.in.FindCustomerByIdInputPort;
 import com.carvalho.hexagonal_architecture.application.ports.in.InsertCustomerInputPort;
 import com.carvalho.hexagonal_architecture.application.ports.in.UpdateCustomerInputPort;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/v1/customers")
@@ -55,7 +55,7 @@ public class CustomerController {
         return ResponseEntity.noContent().build();
     }
 
-    @DeleteMapping("{/id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteById(@PathVariable final String id){
         deleteCustomerByIdInputPort.delete(id);
         return ResponseEntity.noContent().build();
